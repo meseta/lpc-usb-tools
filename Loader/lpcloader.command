@@ -21,20 +21,14 @@ else
 		
 		if [ `uname` == 'Darwin' ]; then
 			diskutil umount $lpcpath
+			echo "...Wiritng $filepath"
+			dd if=$filepath of=$lpcpath seek=4
 		else
 			umount ${lpcpath}
+			echo "...Wiritng $filepath"
+			sudo dd if=$filepath of=$lpcpath seek=4
 		fi
 
-		echo "...Wiritng $filepath"
-		dd if=$filepath of=$lpcpath seek=4
-
-		echo "...Remounting $lpcpath"
-		if [ `uname` == "Darwin" ]; then
-			diskutil mount ${lpcpath}
-		else
-			mount ${lpcpath}
-		fi
-		
 		echo "...Finished"
 	fi
 fi
